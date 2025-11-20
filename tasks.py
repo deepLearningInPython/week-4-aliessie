@@ -60,14 +60,12 @@ print(word_frequencies)
 # -----------------------------------------------
 def token_counts(string: str, k: int = 1) -> dict:
     tokens = tokenize(string)
-    return {word: tokens.count(word) for word in set(tokens) if tokens.count(word) > k}
+    return {word: tokens.count(word) for word in set(tokens) if tokens.count(word) >= k}
 
 # test:
 text_hist = {'the': 2, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 'lazy': 1, 'dog': 1}
-# Note: token_counts(text) uses default k=1, so it returns only {'the': 2}
-# To match text_hist (all words), we would need k=0. 
-# However, strict adherence to the test logic:
-assert all(text_hist[key] == value for key, value in token_counts(text, k=0).items())
+# Note: token_counts(text) uses default k=1. With >= operator, it returns all these tokens.
+assert all(text_hist[key] == value for key, value in token_counts(text, k=1).items())
 # -----------------------------------------------
 
 
